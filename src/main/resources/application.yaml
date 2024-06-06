@@ -1,0 +1,40 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/booking_movies
+    username: root
+    password: 12345678
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  mail:
+    host: smtp.example.com
+    port: 587
+    username: son.lv.2044@aptechlearning.edu.vn
+    password: Laivanson@123
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+api:
+  prefix: api
+jwt:
+  expiration: 25592000 #30 days
+  secretKey: o7IC4PaYaHgH4DAuCHY4GSSvJs2q1uJrlKOmatAlzuI=
+
+
