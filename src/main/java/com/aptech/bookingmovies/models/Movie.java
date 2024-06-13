@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "movie")
+@Document(indexName = "movie")
 @Getter
 @Setter
 @AllArgsConstructor

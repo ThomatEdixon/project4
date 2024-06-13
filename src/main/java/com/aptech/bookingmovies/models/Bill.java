@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "bill")
+@Document(indexName = "bill")
 @Getter
 @Setter
 @AllArgsConstructor

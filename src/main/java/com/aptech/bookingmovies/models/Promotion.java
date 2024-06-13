@@ -5,10 +5,10 @@ import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
-@Entity
 
+@Entity
 @Data
-@Table(name =  "promotion")
+@Document(indexName =  "promotion")
 @Getter
 @Setter
 @AllArgsConstructor

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "user")
+@Document(indexName = "user")
 @Getter
 @Setter
 @NoArgsConstructor

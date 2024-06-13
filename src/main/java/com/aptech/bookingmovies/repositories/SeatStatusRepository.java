@@ -4,5 +4,5 @@ import com.aptech.bookingmovies.models.SeatStatus;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SeatStatusRepository extends JpaRepository<SeatStatus, Integer> {
+public interface SeatStatusRepository extends ElasticsearchRepository<SeatStatus, Integer> {
 }

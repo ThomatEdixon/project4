@@ -9,6 +9,7 @@ import com.aptech.bookingmovies.repositories.ScheduleRepository;
 import com.aptech.bookingmovies.repositories.SeatRepository;
 import com.aptech.bookingmovies.repositories.TicketRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,8 +19,11 @@ import java.util.Random;
 @RequestMapping("${api.prefix}/ticket")
 @RequiredArgsConstructor
 public class TicketService implements ITicketService{
+    @Autowired
     private final TicketRepository ticketRepository;
+    @Autowired
     private final SeatRepository seatRepository;
+    @Autowired
     private final ScheduleRepository scheduleRepository;
 
     @Override

@@ -9,6 +9,7 @@ import com.aptech.bookingmovies.models.*;
 import com.aptech.bookingmovies.repositories.*;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,13 +25,18 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService{
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    @Autowired
     private final UserStatusRepository userStatusRepository;
+    @Autowired
     private final RankCustomerRepository rankCustomerRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
+    @Autowired
     private final RefreshTokenRepository refreshTokenRepository;
     @Override
     public User createUser(UserDTO userDTO) throws DataNotFoundException {
@@ -88,8 +94,8 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public String changePassword(int userId,String newPassword, String confirmPassword) throws Exception{
-        User user = userRepository.findById(userId)
+    public String changePassword(String phoneNumber,String newPassword, String confirmPassword) throws Exception{
+        User user = userRepository.findByPhoneNumber(phoneNumber)
                 .orElseThrow(()-> new DataNotFoundException("Can not found user "));
         if(newPassword.equals(confirmPassword)){
             String newPasswordEncode = passwordEncoder.encode(newPassword);

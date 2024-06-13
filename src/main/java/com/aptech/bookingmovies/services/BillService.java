@@ -22,8 +22,11 @@ import java.util.stream.StreamSupport;
 @Service
 @RequiredArgsConstructor
 public class BillService implements IBillService{
+    @Autowired
     private final BillRepository billRepository;
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final PromotionRepository promotionRepository;
 
     @Override

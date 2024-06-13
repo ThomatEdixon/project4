@@ -4,5 +4,5 @@ import com.aptech.bookingmovies.models.MovieType;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MovieTypeRepository extends JpaRepository<MovieType,Integer> {
+public interface MovieTypeRepository extends ElasticsearchRepository<MovieType,Integer> {
 }

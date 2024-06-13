@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "confirm_email")
+@Document(indexName = "confirm_email")
 @Getter
 @Setter
 @AllArgsConstructor

@@ -9,6 +9,7 @@ import com.aptech.bookingmovies.repositories.RoomRepository;
 import com.aptech.bookingmovies.repositories.SeatRepository;
 import com.aptech.bookingmovies.repositories.SeatStatusRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
@@ -18,8 +19,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SeatService implements ISeatService{
+    @Autowired
     private final RoomRepository roomRepository;
+    @Autowired
     private final SeatStatusRepository seatStatusRepository;
+    @Autowired
     private final SeatRepository seatRepository;
 
     @Override

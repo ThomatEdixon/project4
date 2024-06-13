@@ -6,10 +6,10 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-
 @Entity
+
 @Data
-@Table(name =  "refresh_token")
+@Document(indexName = "refresh_token")
 @Getter
 @Setter
 @AllArgsConstructor

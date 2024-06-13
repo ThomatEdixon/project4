@@ -7,6 +7,7 @@ import com.aptech.bookingmovies.models.RankCustomer;
 import com.aptech.bookingmovies.repositories.PromotionRepository;
 import com.aptech.bookingmovies.repositories.RankCustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +16,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PromotionService implements IPromotionService{
+    @Autowired
     private final PromotionRepository promotionRepository;
+    @Autowired
     private final RankCustomerRepository rankCustomerRepository;
 
     @Override

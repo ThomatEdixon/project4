@@ -5,6 +5,7 @@ import com.aptech.bookingmovies.exceptions.DataNotFoundException;
 import com.aptech.bookingmovies.models.Cinema;
 import com.aptech.bookingmovies.repositories.CinemaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class CinemaService implements ICinemaService{
+    @Autowired
     private final CinemaRepository cinemaRepository;
     @Override
     public Cinema createCinema(CinemaDTO cinemaDTO) throws Exception {

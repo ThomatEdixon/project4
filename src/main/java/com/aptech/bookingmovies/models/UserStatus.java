@@ -6,7 +6,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 @Entity
 @Data
-@Table(name =  "user_status")
+@Document(indexName =  "user_status")
 @Getter
 @Setter
 @NoArgsConstructor

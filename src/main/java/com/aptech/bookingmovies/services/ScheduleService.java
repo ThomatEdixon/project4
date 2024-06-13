@@ -9,6 +9,7 @@ import com.aptech.bookingmovies.repositories.MovieRepository;
 import com.aptech.bookingmovies.repositories.RoomRepository;
 import com.aptech.bookingmovies.repositories.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,8 +18,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ScheduleService implements IScheduleService{
+    @Autowired
     private final ScheduleRepository scheduleRepository;
+    @Autowired
     private final RoomRepository roomRepository;
+    @Autowired
     private final MovieRepository movieRepository;
 
     @Override

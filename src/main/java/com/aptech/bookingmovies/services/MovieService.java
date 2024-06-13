@@ -10,6 +10,7 @@ import com.aptech.bookingmovies.repositories.MovieRepository;
 import com.aptech.bookingmovies.repositories.MovieTypeRepository;
 import com.aptech.bookingmovies.repositories.RateRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
@@ -21,8 +22,11 @@ import java.util.stream.StreamSupport;
 @Service
 @RequiredArgsConstructor
 public class MovieService implements IMovieService{
+    @Autowired
     private final MovieRepository movieRepository;
+    @Autowired
     private final RateRepository rateRepository;
+    @Autowired
     private final MovieTypeRepository movieTypeRepository;
 
     @Override
@@ -93,7 +97,7 @@ public class MovieService implements IMovieService{
 
     @Override
     public List<Movie> findAll() {
-        List<Movie> movies = movieRepository.findAll();
+        Iterable<Movie> movies = movieRepository.findAll();
         List<Movie> result = new ArrayList<>();
         for(Movie m :movies){
             if(m.isActive()){

@@ -9,6 +9,7 @@ import com.aptech.bookingmovies.repositories.BillRepository;
 import com.aptech.bookingmovies.repositories.BillTicketRepository;
 import com.aptech.bookingmovies.repositories.TicketRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
@@ -20,8 +21,11 @@ import java.util.stream.StreamSupport;
 @Service
 @RequiredArgsConstructor
 public class BillTicketService implements IBillTicketService{
+    @Autowired
     private final BillRepository billRepository;
+    @Autowired
     private final TicketRepository ticketRepository;
+    @Autowired
     private final BillTicketRepository billTicketRepository;
     @Override
     public List<BillTicket> findBillTicketByCustomerPhoneNumber(String phoneNumber) {

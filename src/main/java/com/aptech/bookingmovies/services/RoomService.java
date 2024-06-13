@@ -7,6 +7,7 @@ import com.aptech.bookingmovies.models.Room;
 import com.aptech.bookingmovies.repositories.CinemaRepository;
 import com.aptech.bookingmovies.repositories.RoomRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
@@ -17,7 +18,9 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class RoomService implements IRoomService{
+    @Autowired
     private final RoomRepository roomRepository;
+    @Autowired
     private final CinemaRepository cinemaRepository;
     @Override
     public List<Room> findAll() {
