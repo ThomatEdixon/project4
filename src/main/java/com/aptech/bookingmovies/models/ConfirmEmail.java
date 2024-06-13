@@ -2,6 +2,7 @@ package com.aptech.bookingmovies.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
 
@@ -17,9 +18,9 @@ public class ConfirmEmail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "expried_time")
+    @Column(name = "expired_time")
     private LocalDateTime expriedTime;
-    @Column(name = "comfirm_code")
+    @Column(name = "confirm_code")
     private String confirmCode;
     @Column(name = "is_confirm")
     private boolean isConfirm;

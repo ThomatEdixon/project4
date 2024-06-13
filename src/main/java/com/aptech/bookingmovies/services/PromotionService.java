@@ -9,6 +9,7 @@ import com.aptech.bookingmovies.repositories.RankCustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ public class PromotionService implements IPromotionService{
 
     @Override
     public Promotion findPromotionByRankCustomer(int rankCustomerId) {
-        List<Promotion> promotions = promotionRepository.findAll();
+        List<Promotion> promotions = this.findAll();
         Promotion promotion = new Promotion();
         for(Promotion p : promotions){
             if(p.getRankCustomer().getId() == rankCustomerId){
@@ -68,7 +69,20 @@ public class PromotionService implements IPromotionService{
     public String deletePromotion(int id) throws Exception{
         Promotion existingPromotion = promotionRepository.findById(id)
                 .orElseThrow(()->new DataNotFoundException("Can not found promotion"));
-        promotionRepository.delete(existingPromotion);
+        existingPromotion.setActive(false);
+        promotionRepository.save(existingPromotion);
         return "Delete Successfully";
+    }
+
+    @Override
+    public List<Promotion> findAll() {
+        Iterable<Promotion> promotions = promotionRepository.findAll();
+        List<Promotion> result = new ArrayList<>();
+        for(Promotion p: promotions){
+            if(p.isActive()){
+                result.add(p);
+            }
+        }
+        return result;
     }
 }

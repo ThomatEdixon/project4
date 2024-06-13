@@ -2,6 +2,7 @@ package com.aptech.bookingmovies.services;
 
 import com.aptech.bookingmovies.dtos.MovieDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
+import com.aptech.bookingmovies.models.BillTicket;
 import com.aptech.bookingmovies.models.Movie;
 import com.aptech.bookingmovies.models.MovieType;
 import com.aptech.bookingmovies.models.Rate;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +51,7 @@ public class MovieService implements IMovieService{
 
     @Override
     public List<Movie> findByName(String name) throws Exception {
-        List<Movie> movies = movieRepository.findAll();
+        List<Movie> movies = this.findAll();
         List<Movie> result = new ArrayList<>();
         for(Movie m : movies){
             if(m.getName().contains(name)){
@@ -90,6 +93,13 @@ public class MovieService implements IMovieService{
 
     @Override
     public List<Movie> findAll() {
-        return movieRepository.findAll();
+        List<Movie> movies = movieRepository.findAll();
+        List<Movie> result = new ArrayList<>();
+        for(Movie m :movies){
+            if(m.isActive()){
+                result.add(m);
+            }
+        }
+        return result;
     }
 }

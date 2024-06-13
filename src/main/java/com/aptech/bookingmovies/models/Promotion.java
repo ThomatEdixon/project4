@@ -2,12 +2,13 @@ package com.aptech.bookingmovies.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
-
 @Entity
+
 @Data
-@Table(name = "promotion")
+@Table(name =  "promotion")
 @Getter
 @Setter
 @AllArgsConstructor

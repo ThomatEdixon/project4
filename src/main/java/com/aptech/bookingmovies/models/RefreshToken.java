@@ -2,13 +2,14 @@ package com.aptech.bookingmovies.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "refresh_token")
+@Table(name =  "refresh_token")
 @Getter
 @Setter
 @AllArgsConstructor

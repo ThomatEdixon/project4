@@ -40,7 +40,7 @@ public class CinemaService implements ICinemaService{
 
     @Override
     public List<Cinema> getByName(String name) throws Exception{
-        List<Cinema> cinemas = cinemaRepository.findAll();
+        List<Cinema> cinemas = this.getAll();
         List<Cinema> cinema = new ArrayList<>();
         if(cinemas.isEmpty()){
             throw new DataNotFoundException("Can not found Ciname");
@@ -66,7 +66,7 @@ public class CinemaService implements ICinemaService{
 
     @Override
     public List<Cinema> getAll() {
-        List<Cinema> cinemas = cinemaRepository.findAll();
+        Iterable<Cinema> cinemas = cinemaRepository.findAll();
         List<Cinema> results = new ArrayList<>();
         for(Cinema c : cinemas){
             if(c.isActive()){

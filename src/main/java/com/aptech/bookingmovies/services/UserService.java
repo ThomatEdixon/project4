@@ -4,6 +4,7 @@ import com.aptech.bookingmovies.components.JwtTokenUtil;
 import com.aptech.bookingmovies.dtos.UserDTO;
 import com.aptech.bookingmovies.dtos.UserLoginDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
+import com.aptech.bookingmovies.exceptions.PasswordNotMatch;
 import com.aptech.bookingmovies.models.*;
 import com.aptech.bookingmovies.repositories.*;
 import io.jsonwebtoken.Claims;
@@ -60,17 +61,13 @@ public class UserService implements IUserService{
                 .rankCustomer(rankCustomer)
                 .userStatus(userStatus)
                 .build();
-
-        return userRepository.save(newUser);
+        userRepository.save(newUser);
+        return newUser;
     }
 
     @Override
     public String login(UserLoginDTO userLoginDTO) throws Exception {
-        Optional<User> users = userRepository.findByPhoneNumber(userLoginDTO.getPhoneNumber());
-        if(users.isEmpty()){
-            throw new DataNotFoundException("Can not found user with "+ userLoginDTO.getPhoneNumber());
-        }
-        User existingUser = users.get();
+        User existingUser = findByPhoneNumber(userLoginDTO.getPhoneNumber());
         if(!passwordEncoder.matches(userLoginDTO.getPassword(), existingUser.getPassword())){
             throw new BadCredentialsException("Wrong number or password");
         }
@@ -88,5 +85,38 @@ public class UserService implements IUserService{
                 .build();
         refreshTokenRepository.save(refreshToken);
         return token;
+    }
+
+    @Override
+    public String changePassword(int userId,String newPassword, String confirmPassword) throws Exception{
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new DataNotFoundException("Can not found user "));
+        if(newPassword.equals(confirmPassword)){
+            String newPasswordEncode = passwordEncoder.encode(newPassword);
+            user.setPassword(newPasswordEncode);
+            userRepository.save(user);
+        }else {
+            throw new PasswordNotMatch("Password does not match");
+        }
+        return "Change password success";
+    }
+
+    @Override
+    public boolean forgotPassword(String email, String phoneNumber) throws Exception{
+        User existingUser = findByPhoneNumber(phoneNumber);
+        if(existingUser.getEmail().equals(email)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public User findByPhoneNumber(String phoneNumber) throws Exception {
+        Optional<User> users = userRepository.findByPhoneNumber(phoneNumber);
+        if(users.isEmpty()){
+            throw new DataNotFoundException("Can not found user with "+ phoneNumber);
+        }
+        User existingUser = users.get();
+        return existingUser;
     }
 }

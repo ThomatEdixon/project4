@@ -2,10 +2,11 @@ package com.aptech.bookingmovies.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 @Entity
 @Data
-@Table(name = "movie_type")
+@Table(name =  "movie_type")
 @Getter
 @Setter
 @AllArgsConstructor

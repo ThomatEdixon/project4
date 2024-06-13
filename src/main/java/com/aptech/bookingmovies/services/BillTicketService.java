@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 @RequiredArgsConstructor
 public class BillTicketService implements IBillTicketService{
@@ -22,14 +25,14 @@ public class BillTicketService implements IBillTicketService{
     private final BillTicketRepository billTicketRepository;
     @Override
     public List<BillTicket> findBillTicketByCustomerPhoneNumber(String phoneNumber) {
-        List<Bill> bills = billRepository.findAll();
+        Iterable<Bill> bills = billRepository.findAll();
         List<Bill> result = new ArrayList<>();
         for(Bill b : bills){
             if(b.getUser().getPhoneNumber().equals(phoneNumber)){
                 result.add(b);
             }
         }
-        List<BillTicket> billTickets = billTicketRepository.findAll();
+        List<BillTicket> billTickets = this.findAll();
         List<BillTicket> resultBillTickets = new ArrayList<>();
         for(Bill bill : result){
             for (int i =0 ;i<billTickets.size();i++){
@@ -75,5 +78,12 @@ public class BillTicketService implements IBillTicketService{
                 .orElseThrow(()-> new DataNotFoundException("Can not found bill ticket"));
         billTicketRepository.delete(existingBillTicket);
         return "Delete Successfully";
+    }
+
+    @Override
+    public List<BillTicket> findAll() {
+        Iterable<BillTicket> billTickets = billTicketRepository.findAll();
+        return StreamSupport.stream(billTickets.spliterator(), false)
+                .collect(Collectors.toList());
     }
 }

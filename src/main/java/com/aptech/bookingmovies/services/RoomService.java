@@ -21,7 +21,7 @@ public class RoomService implements IRoomService{
     private final CinemaRepository cinemaRepository;
     @Override
     public List<Room> findAll() {
-        List<Room> rooms = roomRepository.findAll();
+        Iterable<Room> rooms = roomRepository.findAll();
         List<Room> results = new ArrayList<>();
         for(Room r : rooms){
             if(r.isActive()){

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,8 +24,14 @@ public class SeatService implements ISeatService{
 
     @Override
     public List<Seat> findAll() {
-        List<Seat> seats = seatRepository.findAll();
-        return seats;
+        Iterable<Seat> seats = seatRepository.findAll();
+        List<Seat> result = new ArrayList<>();
+        for(Seat s: seats){
+            if(s.isActive()){
+                result.add(s);
+            }
+        }
+        return result;
     }
 
     @Override
@@ -64,7 +71,8 @@ public class SeatService implements ISeatService{
     public String delete(int id) throws Exception {
         Seat existingSeat = seatRepository.findById(id)
                 .orElseThrow(()-> new DataNotFoundException("Can not found seat"));
-        seatRepository.delete(existingSeat);
+        existingSeat.setActive(false);
+        seatRepository.save(existingSeat);
         return "Delete Successfully";
     }
 }

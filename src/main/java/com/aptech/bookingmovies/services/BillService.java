@@ -9,13 +9,15 @@ import com.aptech.bookingmovies.repositories.BillRepository;
 import com.aptech.bookingmovies.repositories.PromotionRepository;
 import com.aptech.bookingmovies.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +37,7 @@ public class BillService implements IBillService{
 
     @Override
     public List<Bill> findBillByCustomerPhoneNumber(String phoneNumber) throws Exception {
-        List<Bill> bills = billRepository.findAll();
+        List<Bill> bills = this.findAll();
         List<Bill> result = new ArrayList<>();
         for(Bill b : bills){
             if(b.getUser().getPhoneNumber().equals(phoneNumber)&& b.isActive()){
@@ -90,6 +92,19 @@ public class BillService implements IBillService{
         billRepository.save(exitingBill);
         return "Delete Successfully";
     }
+
+    @Override
+    public List<Bill> findAll() {
+        Iterable<Bill> bills = billRepository.findAll();
+        List<Bill> result = new ArrayList<>();
+        for(Bill b : bills){
+            if(b.isActive()){
+                result.add(b);
+            }
+        }
+        return result;
+    }
+
     public String generateTradingCode(){
         String tradingCode = "TC";
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

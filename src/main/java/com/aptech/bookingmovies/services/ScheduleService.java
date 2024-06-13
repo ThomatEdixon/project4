@@ -23,7 +23,7 @@ public class ScheduleService implements IScheduleService{
 
     @Override
     public List<Schedule> findByMovieName(String movieName) {
-        List<Schedule> schedules = scheduleRepository.findAll();
+        List<Schedule> schedules = this.findAll();
         List<Schedule> result = new ArrayList<>();
         for(Schedule s : schedules){
             if(s.getMovie().getName().contains(movieName)){
@@ -74,12 +74,20 @@ public class ScheduleService implements IScheduleService{
     public String deleteSchedule(int id) throws Exception {
         Schedule existingSchedule = scheduleRepository.findById(id)
                 .orElseThrow(()-> new DataNotFoundException("Can not found schedule"));
-        scheduleRepository.delete(existingSchedule);
+        existingSchedule.setActive(false);
+        scheduleRepository.save(existingSchedule);
         return "Delete Successfully";
     }
 
     @Override
     public List<Schedule> findAll() {
-        return scheduleRepository.findAll();
+        Iterable<Schedule> schedules = scheduleRepository.findAll();
+        List<Schedule> results = new ArrayList<>();
+        for(Schedule s: schedules){
+            if(s.isActive()){
+                results.add(s);
+            }
+        }
+        return results;
     }
 }
