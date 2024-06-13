@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ConfirmEmailRepository extends JpaRepository<ConfirmEmail,Integer> {
     ConfirmEmail findByConfirmCode(String confirmCode);
+
 }

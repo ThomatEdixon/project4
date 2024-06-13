@@ -22,19 +22,6 @@ public class WedSecurityConfig {
     @Value("${api.prefix}")
     private String apiPrefix;
     private final JwtTokenFilter jwtTokenFilter;
-        @Bean
-        public WebMvcConfigurer corsConfigurer() {
-                return new WebMvcConfigurer() {
-                        @Override
-                        public void addCorsMappings(CorsRegistry registry) {
-                                registry.addMapping("/**")
-                                        .allowedOrigins("http://localhost:3000") // Replace with your frontend's URL
-                                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                                        .allowedHeaders("*")
-                                        .allowCredentials(true);
-                        }
-                };
-        }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http

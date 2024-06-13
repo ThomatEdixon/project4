@@ -33,7 +33,7 @@ public class ConfirmEmailService implements IConfirmEmailService{
     }
 
     @Override
-    public boolean checkingConfirmCode(String email,String confirmCode) {
+    public boolean checkingConfirmCode(String confirmCode,String email) {
         if(email!= null&& confirmCode!=null){
             ConfirmEmail confirmEmail = confirmEmailRepository.findByConfirmCode(confirmCode);
             if(confirmEmail!= null ){

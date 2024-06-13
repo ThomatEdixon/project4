@@ -84,12 +84,12 @@ public class UserController {
         }
 
     }
-    @PostMapping("/checkOtp/{email}")
-    public boolean checkOtp(@RequestParam String otp, @PathVariable(name = "email")String email){
+    @PostMapping("/checkOtp")
+    public ResponseEntity<?> checkOtp(@RequestParam String otp, @RequestParam String email){
         if(confirmEmailService.checkingConfirmCode(otp,email)){
-            return true;
+            return ResponseEntity.ok(true);
         }
-        return false;
+        return ResponseEntity.badRequest().body(false);
     }
     @PostMapping("changePassword")
     public ResponseEntity<?> changePassword(@RequestParam int userId, @RequestParam String newPassword,@RequestParam String confirmPassword){
