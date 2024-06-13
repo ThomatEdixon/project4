@@ -85,4 +85,11 @@ public class PromotionService implements IPromotionService{
         }
         return result;
     }
+
+    @Override
+    public Promotion findById(int id) throws Exception{
+        Promotion existingPromotion = promotionRepository.findById(id)
+                .orElseThrow(()->new DataNotFoundException("Can not found promotion"));
+        return existingPromotion;
+    }
 }

@@ -27,6 +27,11 @@ public class TicketController {
         Ticket ticket = ticketService.findByCode(code);
         return ResponseEntity.ok(ticket);
     }
+    @GetMapping("/findTicketId")
+    public ResponseEntity<?> findTicketId(@RequestParam int id) throws Exception{
+        Ticket ticket = ticketService.findById(id);
+        return ResponseEntity.ok(ticket);
+    }
     @PostMapping("/createTicket")
     public ResponseEntity<?> createTicket(@Valid @RequestBody TicketDTO ticketDTO, BindingResult result){
         try{

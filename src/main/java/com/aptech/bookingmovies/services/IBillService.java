@@ -12,4 +12,5 @@ public interface IBillService {
     Bill updateBill(int id, BillDTO billDTO) throws Exception;
     String deleteBill(int id);
     List<Bill> findAll();
+    Bill findById(int id) throws Exception;
 }

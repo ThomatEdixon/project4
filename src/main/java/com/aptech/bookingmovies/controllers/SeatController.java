@@ -25,7 +25,11 @@ public class SeatController {
     public ResponseEntity<?> listSeat(){
         return ResponseEntity.ok(seatService.findAll());
     }
-
+    @GetMapping("/findSeatId")
+    public ResponseEntity<?> findSeatId(@RequestParam int id) throws Exception{
+        Seat seat = seatService.findById(id);
+        return ResponseEntity.ok(seat);
+    }
     @PostMapping("/create")
     public ResponseEntity<?> createSeat(@Valid @RequestBody SeatDTO seatDTO, BindingResult result){
         try{

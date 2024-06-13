@@ -24,6 +24,11 @@ public class BillTicketController {
         List<BillTicket> bills = billTicketService.findBillTicketByCustomerPhoneNumber(phoneNumber);
         return ResponseEntity.ok(bills);
     }
+    @GetMapping("/findBillTicketId")
+    public ResponseEntity<?> findBillTicketId(@RequestParam int id) throws Exception{
+        BillTicket billTicket = billTicketService.findById(id);
+        return ResponseEntity.ok(billTicket);
+    }
 
     @PostMapping("/createBillTicket")
     public ResponseEntity<?> createBillTicket(@Valid @RequestBody BillTicketDTO billTicketDTO, BindingResult result){

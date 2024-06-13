@@ -26,6 +26,11 @@ public class BillController {
         Bill bill = billService.findBillByTradingCode(tradingCode);
         return ResponseEntity.ok(bill);
     }
+    @GetMapping("/findBillId")
+    public ResponseEntity<?> findBillId(@RequestParam int id) throws Exception{
+        Bill bill = billService.findById(id);
+        return ResponseEntity.ok(bill);
+    }
 
     @GetMapping("/findByCustomerPhoneNumber")
     public ResponseEntity<?> listBill(@RequestParam String phoneNumber) throws Exception{

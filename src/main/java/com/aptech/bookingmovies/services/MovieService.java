@@ -102,4 +102,11 @@ public class MovieService implements IMovieService{
         }
         return result;
     }
+
+    @Override
+    public Movie findById(int id) {
+        Movie existingMovie = movieRepository.findById(id)
+                .orElseThrow(()-> new DateTimeException("Can not found movie"));
+        return existingMovie;
+    }
 }

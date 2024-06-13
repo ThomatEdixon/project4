@@ -74,6 +74,14 @@ public class RoomService implements IRoomService{
     public Room findByRoomName(String name) throws Exception {
         return roomRepository.findByName(name);
     }
+
+    @Override
+    public Room findById(int id) {
+        Room existingRoom = roomRepository.findById(id)
+                .orElseThrow(()->new DateTimeException("Can not found room"));
+        return existingRoom;
+    }
+
     public String generateRoomCode(){
         String roomCode="R";
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

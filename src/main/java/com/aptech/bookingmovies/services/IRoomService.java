@@ -11,4 +11,5 @@ public interface IRoomService {
     Room update(int id, RoomDTO roomDTO) throws Exception;
     String delete(int id) throws Exception;
     Room findByRoomName(String name) throws Exception;
+    Room findById(int id);
 }

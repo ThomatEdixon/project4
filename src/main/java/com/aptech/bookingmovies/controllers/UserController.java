@@ -23,6 +23,11 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final ConfirmEmailService confirmEmailService;
+    @GetMapping("/findBillId")
+    public ResponseEntity<?> findBillId(@RequestParam int id) throws Exception{
+        User user = userService.findById(id);
+        return ResponseEntity.ok(user);
+    }
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UserDTO userDTO, BindingResult result){
         try{
@@ -92,9 +97,9 @@ public class UserController {
         return ResponseEntity.badRequest().body(false);
     }
     @PostMapping("changePassword")
-    public ResponseEntity<?> changePassword(@RequestParam int userId, @RequestParam String newPassword,@RequestParam String confirmPassword){
+    public ResponseEntity<?> changePassword(@RequestParam String phoneNumber, @RequestParam String newPassword,@RequestParam String confirmPassword){
         try{
-            String result = userService.changePassword(userId,newPassword,confirmPassword);
+            String result = userService.changePassword(phoneNumber,newPassword,confirmPassword);
             return ResponseEntity.ok(result);
 
         }catch (Exception e){

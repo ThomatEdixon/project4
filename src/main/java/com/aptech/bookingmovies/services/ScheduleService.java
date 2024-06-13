@@ -90,4 +90,11 @@ public class ScheduleService implements IScheduleService{
         }
         return results;
     }
+
+    @Override
+    public Schedule findById(int id) throws Exception {
+        Schedule existingSchedule = scheduleRepository.findById(id)
+                .orElseThrow(()-> new DataNotFoundException("Can not found schedule"));
+        return existingSchedule;
+    }
 }

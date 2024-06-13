@@ -26,7 +26,11 @@ public class ScheduleController {
         List<Schedule> schedule = scheduleService.findByMovieName(name);
         return ResponseEntity.ok(schedule);
     }
-
+    @GetMapping("/findScheduleId")
+    public ResponseEntity<?> findScheduleId(@RequestParam int id) throws Exception{
+        Schedule schedule = scheduleService.findById(id);
+        return ResponseEntity.ok(schedule);
+    }
     @GetMapping("")
     public ResponseEntity<?> listSchedule(){
         return ResponseEntity.ok(scheduleService.findAll());

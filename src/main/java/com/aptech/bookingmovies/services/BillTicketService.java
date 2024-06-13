@@ -86,4 +86,11 @@ public class BillTicketService implements IBillTicketService{
         return StreamSupport.stream(billTickets.spliterator(), false)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public BillTicket findById(int id) throws Exception{
+        BillTicket existingBillTicket = billTicketRepository.findById(id)
+                .orElseThrow(()-> new DataNotFoundException("Can not found bill ticket"));
+        return existingBillTicket;
+    }
 }

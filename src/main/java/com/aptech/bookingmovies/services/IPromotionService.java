@@ -11,4 +11,5 @@ public interface IPromotionService {
     Promotion updatePromotion(int id, PromotionDTO promotionDTO) throws Exception;
     String deletePromotion(int id) throws Exception;
     List<Promotion> findAll();
+    Promotion findById(int id) throws Exception;
 }

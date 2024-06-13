@@ -24,7 +24,11 @@ public class RoomController {
         Room room = roomService.findByRoomName(name);
         return ResponseEntity.ok(room);
     }
-
+    @GetMapping("/findRoomId")
+    public ResponseEntity<?> findRoomId(@RequestParam int id) throws Exception{
+        Room room = roomService.findById(id);
+        return ResponseEntity.ok(room);
+    }
     @GetMapping("")
     public ResponseEntity<?> listRoom(){
         return ResponseEntity.ok(roomService.findAll());

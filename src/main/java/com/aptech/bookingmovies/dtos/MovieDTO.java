@@ -2,6 +2,8 @@ package com.aptech.bookingmovies.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -12,13 +14,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovieDTO {
-    @JsonProperty("movie_duration")
     private int movieDuration;
-
-    @JsonProperty("end_time")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime endTime;
-
-    @JsonProperty("premiere_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date premiereDate;
 
     private String description;
@@ -27,7 +26,6 @@ public class MovieDTO {
 
     private String image;
 
-    @JsonProperty("hero_image")
     private String heroImage;
 
     private String language;
@@ -36,10 +34,9 @@ public class MovieDTO {
 
     private String trailer;
 
-    @JsonProperty("movie_type_id")
     private int movieTypeId;
 
-    @JsonProperty("rate_id")
     private int rateId;
+    private MultipartFile file;
 
 }

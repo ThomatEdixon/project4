@@ -13,4 +13,5 @@ public interface IScheduleService {
 
     String deleteSchedule(int id) throws Exception;
     List<Schedule> findAll();
+    Schedule findById(int id) throws Exception;
 }

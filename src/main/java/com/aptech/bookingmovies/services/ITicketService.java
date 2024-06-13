@@ -9,4 +9,5 @@ public interface ITicketService {
     Ticket updateTicket(int id, TicketDTO ticketDTO) throws Exception;;
 
     String deleteTicket(int id)throws Exception;
+    Ticket findById(int id) throws Exception;
 }

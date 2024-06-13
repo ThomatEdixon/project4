@@ -10,4 +10,5 @@ public interface ISeatService {
     Seat create(SeatDTO seatDTO) throws Exception;
     Seat update(int id,SeatDTO seatDTO) throws Exception;
     String delete(int id) throws Exception;
+    Seat findById(int id) throws Exception;
 }

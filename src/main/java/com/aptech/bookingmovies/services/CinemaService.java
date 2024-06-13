@@ -76,6 +76,13 @@ public class CinemaService implements ICinemaService{
         return results;
     }
 
+    @Override
+    public Cinema findById(int id) throws Exception {
+        Cinema cinema = cinemaRepository.findById(id)
+                .orElseThrow(()-> new DataNotFoundException("Can not found cinema"));
+        return cinema;
+    }
+
     public String generateCinemaCode(){
         String cinemaCode="C";
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";

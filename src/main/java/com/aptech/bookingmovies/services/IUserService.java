@@ -9,8 +9,9 @@ import com.aptech.bookingmovies.models.User;
 public interface IUserService {
     User createUser(UserDTO userDTO) throws DataNotFoundException;
     String login(UserLoginDTO userLoginDTO) throws Exception;
-    String changePassword(int userId,String newPassword,String confirmPassword) throws Exception;
+    String changePassword(String phoneNumber,String newPassword,String confirmPassword) throws Exception;
     boolean forgotPassword(String email,String phoneNumber)throws Exception;
     User findByPhoneNumber(String phoneNumber) throws  Exception;
+    User findById(int id) throws Exception;
 
 }

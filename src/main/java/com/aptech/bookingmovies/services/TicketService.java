@@ -64,6 +64,14 @@ public class TicketService implements ITicketService{
         ticketRepository.delete(existingTicket);
         return "Delete Successfully";
     }
+
+    @Override
+    public Ticket findById(int id) throws Exception {
+        Ticket existingTicket = ticketRepository.findById(id)
+                .orElseThrow(()->new DataNotFoundException("Can not found ticket"));
+        return existingTicket;
+    }
+
     public String generateTicketCode(){
         String ticketCode="TK";
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

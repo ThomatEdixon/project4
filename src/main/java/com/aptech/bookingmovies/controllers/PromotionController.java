@@ -25,7 +25,11 @@ public class PromotionController {
         Promotion promotion = promotionService.findPromotionByRankCustomer(rankCustomerId);
         return ResponseEntity.ok(promotion);
     }
-
+    @GetMapping("/findPromotionId")
+    public ResponseEntity<?> findPromotionId(@RequestParam int id) throws Exception{
+        Promotion promotion = promotionService.findById(id);
+        return ResponseEntity.ok(promotion);
+    }
     @PostMapping("/createPromotion")
     public ResponseEntity<?> createPromotion(@Valid @RequestBody PromotionDTO promotionDTO, BindingResult result){
         try{

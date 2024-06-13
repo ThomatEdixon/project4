@@ -105,6 +105,13 @@ public class BillService implements IBillService{
         return result;
     }
 
+    @Override
+    public Bill findById(int id) {
+        Bill exitingBill = billRepository.findById(id)
+                .orElseThrow(()-> new DateTimeException("Can not found bill"));
+        return exitingBill;
+    }
+
     public String generateTradingCode(){
         String tradingCode = "TC";
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

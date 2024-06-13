@@ -75,4 +75,11 @@ public class SeatService implements ISeatService{
         seatRepository.save(existingSeat);
         return "Delete Successfully";
     }
+
+    @Override
+    public Seat findById(int id) throws Exception{
+        Seat existingSeat = seatRepository.findById(id)
+                .orElseThrow(()-> new DataNotFoundException("Can not found seat"));
+        return existingSeat;
+    }
 }

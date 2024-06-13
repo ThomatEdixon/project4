@@ -11,4 +11,5 @@ public interface ICinemaService {
     List<Cinema> getByName(String name) throws Exception;
     String deleteById(int id) throws Exception;
     List<Cinema> getAll();
+    Cinema findById(int id) throws Exception;
 }

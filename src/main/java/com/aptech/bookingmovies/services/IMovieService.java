@@ -11,4 +11,5 @@ public interface IMovieService {
     Movie updateMovie(int id, MovieDTO movieDTO)throws Exception;
     String deleteMovie(int id) throws Exception;
     List<Movie> findAll();
+    Movie findById(int id);
 }

@@ -27,6 +27,11 @@ public class CinemaController {
         return ResponseEntity.ok(cinemas);
     }
 
+    @GetMapping("/findCinemaId")
+    public ResponseEntity<?> findCinemaId(@RequestParam int id) throws Exception{
+        Cinema cinema = cinemaService.findById(id);
+        return ResponseEntity.ok(cinema);
+    }
     @GetMapping("")
     public ResponseEntity<?> listCinema(){
         return ResponseEntity.ok(cinemaService.getAll());
