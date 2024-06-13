@@ -92,9 +92,9 @@ public class UserController {
         return ResponseEntity.badRequest().body(false);
     }
     @PostMapping("changePassword")
-    public ResponseEntity<?> changePassword(@RequestParam int userId, @RequestParam String newPassword,@RequestParam String confirmPassword){
+    public ResponseEntity<?> changePassword(@RequestParam String phoneNumber, @RequestParam String newPassword,@RequestParam String confirmPassword){
         try{
-            String result = userService.changePassword(userId,newPassword,confirmPassword);
+            String result = userService.changePassword(phoneNumber,newPassword,confirmPassword);
             return ResponseEntity.ok(result);
 
         }catch (Exception e){

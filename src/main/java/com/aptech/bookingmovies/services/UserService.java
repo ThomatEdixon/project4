@@ -88,8 +88,8 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public String changePassword(int userId,String newPassword, String confirmPassword) throws Exception{
-        User user = userRepository.findById(userId)
+    public String changePassword(String phoneNumber,String newPassword, String confirmPassword) throws Exception{
+        User user = userRepository.findByPhoneNumber(phoneNumber)
                 .orElseThrow(()-> new DataNotFoundException("Can not found user "));
         if(newPassword.equals(confirmPassword)){
             String newPasswordEncode = passwordEncoder.encode(newPassword);

@@ -36,7 +36,7 @@ public class ConfirmEmailService implements IConfirmEmailService{
     public boolean checkingConfirmCode(String confirmCode,String email) {
         if(email!= null&& confirmCode!=null){
             ConfirmEmail confirmEmail = confirmEmailRepository.findByConfirmCode(confirmCode);
-            if(confirmEmail!= null ){
+            if(confirmEmail!= null && confirmEmail.getConfirmCode().equals(confirmCode)){
                 if( LocalDateTime.now().isBefore(confirmEmail.getExpriedTime())){
                     return true;
                 }else {
