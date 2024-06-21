@@ -39,8 +39,8 @@ jwt:
   secretKey: o7IC4PaYaHgH4DAuCHY4GSSvJs2q1uJrlKOmatAlzuI=
 paypal:
   client:
-    id: your_client_id
-    secret: your_client_secret
+    id: AXnK_VTI8iqOKEYDt-5K8OkH1L_Ab6N1_Rn75moqHTj41do27a-4kUpBGeec_jTrfkMFHAQIC-X0YpR1
+    secret: EHGc5TVBZ_I_HDJ1ycnZnW_bVAH7iZWTjn20N7ktRDxIPKCs5vJ2NFKBneRQL8AQgH5ffCW3jx0P5SmY
   mode: sandbox
 
 
