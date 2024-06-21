@@ -37,5 +37,10 @@ api:
 jwt:
   expiration: 25592000 #30 days
   secretKey: o7IC4PaYaHgH4DAuCHY4GSSvJs2q1uJrlKOmatAlzuI=
+paypal:
+  client:
+    id: your_client_id
+    secret: your_client_secret
+  mode: sandbox
 
 
