@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.billticket;
 
 import com.aptech.bookingmovies.dtos.BillTicketDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
@@ -11,7 +11,6 @@ import com.aptech.bookingmovies.repositories.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
-public class BillTicketService implements IBillTicketService{
+public class BillTicketService implements IBillTicketService {
     private final BillRepository billRepository;
     private final TicketRepository ticketRepository;
     private final BillTicketRepository billTicketRepository;

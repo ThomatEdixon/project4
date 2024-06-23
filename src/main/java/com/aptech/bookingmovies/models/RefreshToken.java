@@ -2,7 +2,6 @@ package com.aptech.bookingmovies.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -20,9 +19,13 @@ public class RefreshToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "token")
-    private String Token;
+    private String token;
     @Column(name = "expired_time")
-    private Date expiredTime;
+    private LocalDateTime expiredTime;
+    @Column(name = "refresh_token")
+    private String refreshToken;
+    @Column(name = "expired_time_refresh_token")
+    private LocalDateTime expiredTimeRefreshToken;
     @ManyToOne
     @JoinColumn
     private User user;

@@ -1,13 +1,10 @@
 package com.aptech.bookingmovies.controllers;
 
-import com.aptech.bookingmovies.dtos.RoomDTO;
 import com.aptech.bookingmovies.dtos.SeatDTO;
-import com.aptech.bookingmovies.models.Room;
 import com.aptech.bookingmovies.models.Seat;
-import com.aptech.bookingmovies.services.SeatService;
+import com.aptech.bookingmovies.services.seat.SeatService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

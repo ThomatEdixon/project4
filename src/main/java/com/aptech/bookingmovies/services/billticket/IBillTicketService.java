@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.billticket;
 
 import com.aptech.bookingmovies.dtos.BillTicketDTO;
 import com.aptech.bookingmovies.models.Bill;

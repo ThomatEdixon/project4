@@ -1,26 +1,24 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.movie;
 
 import com.aptech.bookingmovies.dtos.MovieDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
-import com.aptech.bookingmovies.models.BillTicket;
 import com.aptech.bookingmovies.models.Movie;
 import com.aptech.bookingmovies.models.MovieType;
 import com.aptech.bookingmovies.models.Rate;
 import com.aptech.bookingmovies.repositories.MovieRepository;
 import com.aptech.bookingmovies.repositories.MovieTypeRepository;
 import com.aptech.bookingmovies.repositories.RateRepository;
+import com.aptech.bookingmovies.services.movie.IMovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
-public class MovieService implements IMovieService{
+public class MovieService implements IMovieService {
     private final MovieRepository movieRepository;
     private final RateRepository rateRepository;
     private final MovieTypeRepository movieTypeRepository;

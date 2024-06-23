@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.confirmemail;
 
 import com.aptech.bookingmovies.models.ConfirmEmail;
 import com.aptech.bookingmovies.models.User;

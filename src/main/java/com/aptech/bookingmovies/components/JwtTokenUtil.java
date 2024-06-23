@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,13 +33,15 @@ public class JwtTokenUtil {
     }
     public String generateToken(User user){
         Map<String,Object> claims = new HashMap<>();// claims
+        String subject = getSubject(user);
+        claims.put("subject", subject);
         claims.put("phoneNumber",user.getPhoneNumber());
         claims.put("role",user.getRole().getRoleName());
         try{
             String token = Jwts.builder()
                     .setClaims(claims)
                     .setSubject(user.getPhoneNumber())
-                    .setExpiration(new Date(System.currentTimeMillis()+expiration*1000L))
+                    .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000L))
                     .signWith(getSignKey(), SignatureAlgorithm.HS256)
                     .compact();
             return token;
@@ -47,6 +50,18 @@ public class JwtTokenUtil {
             System.err.println("Cannot create jwt token , error : "+e.getMessage());
         }
         return null;
+    }
+    private static String getSubject(User user) {
+        // Determine subject identifier (phone number or email)
+        String subject = user.getPhoneNumber();
+        if (subject == null || subject.isBlank()) {
+            // If phone number is null or blank, use email as subject
+            subject = user.getEmail();
+        }
+        return subject;
+    }
+    public String getSubject(String token) {
+        return  extractClaim(token, Claims::getSubject);
     }
     private Claims extractAllClaims(String token){
         return Jwts.parser()

@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.room;
 
 import com.aptech.bookingmovies.dtos.RoomDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
@@ -6,6 +6,7 @@ import com.aptech.bookingmovies.models.Cinema;
 import com.aptech.bookingmovies.models.Room;
 import com.aptech.bookingmovies.repositories.CinemaRepository;
 import com.aptech.bookingmovies.repositories.RoomRepository;
+import com.aptech.bookingmovies.services.room.IRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public class RoomService implements IRoomService{
+public class RoomService implements IRoomService {
     private final RoomRepository roomRepository;
     private final CinemaRepository cinemaRepository;
     @Override

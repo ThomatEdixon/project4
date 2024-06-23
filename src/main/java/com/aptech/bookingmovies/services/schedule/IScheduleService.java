@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.schedule;
 
 import com.aptech.bookingmovies.dtos.ScheduleDTO;
 import com.aptech.bookingmovies.models.Schedule;

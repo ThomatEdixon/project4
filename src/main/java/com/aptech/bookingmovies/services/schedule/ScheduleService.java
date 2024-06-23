@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.schedule;
 
 import com.aptech.bookingmovies.dtos.ScheduleDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
@@ -8,6 +8,7 @@ import com.aptech.bookingmovies.models.Schedule;
 import com.aptech.bookingmovies.repositories.MovieRepository;
 import com.aptech.bookingmovies.repositories.RoomRepository;
 import com.aptech.bookingmovies.repositories.ScheduleRepository;
+import com.aptech.bookingmovies.services.schedule.IScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ScheduleService implements IScheduleService{
+public class ScheduleService implements IScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final RoomRepository roomRepository;
     private final MovieRepository movieRepository;

@@ -2,10 +2,9 @@ package com.aptech.bookingmovies.controllers;
 
 import com.aptech.bookingmovies.dtos.BillTicketDTO;
 import com.aptech.bookingmovies.models.BillTicket;
-import com.aptech.bookingmovies.services.BillTicketService;
+import com.aptech.bookingmovies.services.billticket.BillTicketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

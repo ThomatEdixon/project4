@@ -1,6 +1,6 @@
 package com.aptech.bookingmovies.controllers;
 
-import com.aptech.bookingmovies.services.PayPalService;
+import com.aptech.bookingmovies.services.payment.PayPalService;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;

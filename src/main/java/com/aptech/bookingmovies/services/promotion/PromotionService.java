@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.promotion;
 
 import com.aptech.bookingmovies.dtos.PromotionDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
@@ -6,6 +6,7 @@ import com.aptech.bookingmovies.models.Promotion;
 import com.aptech.bookingmovies.models.RankCustomer;
 import com.aptech.bookingmovies.repositories.PromotionRepository;
 import com.aptech.bookingmovies.repositories.RankCustomerRepository;
+import com.aptech.bookingmovies.services.promotion.IPromotionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PromotionService implements IPromotionService{
+public class PromotionService implements IPromotionService {
     private final PromotionRepository promotionRepository;
     private final RankCustomerRepository rankCustomerRepository;
 

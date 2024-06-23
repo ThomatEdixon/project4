@@ -2,7 +2,7 @@ package com.aptech.bookingmovies.controllers;
 
 import com.aptech.bookingmovies.dtos.MovieDTO;
 import com.aptech.bookingmovies.models.Movie;
-import com.aptech.bookingmovies.services.MovieService;
+import com.aptech.bookingmovies.services.movie.MovieService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

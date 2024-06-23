@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.cinema;
 
 import com.aptech.bookingmovies.dtos.CinemaDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
@@ -9,12 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public class CinemaService implements ICinemaService{
+public class CinemaService implements ICinemaService {
     private final CinemaRepository cinemaRepository;
     @Override
     public Cinema createCinema(CinemaDTO cinemaDTO) throws Exception {
@@ -85,10 +84,10 @@ public class CinemaService implements ICinemaService{
 
     public String generateCinemaCode(){
         String cinemaCode="C";
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 20; i++) {
             int index = random.nextInt(characters.length());
             sb.append(characters.charAt(index));
         }

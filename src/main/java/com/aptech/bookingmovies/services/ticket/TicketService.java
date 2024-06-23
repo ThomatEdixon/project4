@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.ticket;
 
 import com.aptech.bookingmovies.dtos.TicketDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
@@ -8,6 +8,7 @@ import com.aptech.bookingmovies.models.Ticket;
 import com.aptech.bookingmovies.repositories.ScheduleRepository;
 import com.aptech.bookingmovies.repositories.SeatRepository;
 import com.aptech.bookingmovies.repositories.TicketRepository;
+import com.aptech.bookingmovies.services.ticket.ITicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import java.util.Random;
 @Service
 @RequestMapping("${api.prefix}/ticket")
 @RequiredArgsConstructor
-public class TicketService implements ITicketService{
+public class TicketService implements ITicketService {
     private final TicketRepository ticketRepository;
     private final SeatRepository seatRepository;
     private final ScheduleRepository scheduleRepository;

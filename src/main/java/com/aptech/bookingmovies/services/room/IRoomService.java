@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.room;
 
 import com.aptech.bookingmovies.dtos.RoomDTO;
 import com.aptech.bookingmovies.models.Room;

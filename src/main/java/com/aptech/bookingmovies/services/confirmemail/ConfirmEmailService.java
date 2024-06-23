@@ -1,9 +1,8 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.confirmemail;
 
 import com.aptech.bookingmovies.models.ConfirmEmail;
 import com.aptech.bookingmovies.models.User;
 import com.aptech.bookingmovies.repositories.ConfirmEmailRepository;
-import com.aptech.bookingmovies.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,7 +14,7 @@ import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public class ConfirmEmailService implements IConfirmEmailService{
+public class ConfirmEmailService implements IConfirmEmailService {
     private final ConfirmEmailRepository confirmEmailRepository;
     @Autowired
     private final JavaMailSender javaMailSender;

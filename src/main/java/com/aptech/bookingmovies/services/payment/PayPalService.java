@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.payment;
 
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;

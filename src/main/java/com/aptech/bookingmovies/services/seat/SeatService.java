@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.seat;
 
 import com.aptech.bookingmovies.dtos.SeatDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
@@ -8,6 +8,7 @@ import com.aptech.bookingmovies.models.SeatStatus;
 import com.aptech.bookingmovies.repositories.RoomRepository;
 import com.aptech.bookingmovies.repositories.SeatRepository;
 import com.aptech.bookingmovies.repositories.SeatStatusRepository;
+import com.aptech.bookingmovies.services.seat.ISeatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SeatService implements ISeatService{
+public class SeatService implements ISeatService {
     private final RoomRepository roomRepository;
     private final SeatStatusRepository seatStatusRepository;
     private final SeatRepository seatRepository;

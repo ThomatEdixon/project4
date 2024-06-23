@@ -1,12 +1,14 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.user;
 
 import com.aptech.bookingmovies.components.JwtTokenUtil;
 import com.aptech.bookingmovies.dtos.UserDTO;
 import com.aptech.bookingmovies.dtos.UserLoginDTO;
 import com.aptech.bookingmovies.exceptions.DataNotFoundException;
+import com.aptech.bookingmovies.exceptions.ExpiredTokenException;
 import com.aptech.bookingmovies.exceptions.PasswordNotMatch;
 import com.aptech.bookingmovies.models.*;
 import com.aptech.bookingmovies.repositories.*;
+import com.aptech.bookingmovies.services.user.IUserService;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,11 +21,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements IUserService{
+public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -31,7 +32,7 @@ public class UserService implements IUserService{
     private final RankCustomerRepository rankCustomerRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
-    private final RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenRepository tokenRepository;
     @Override
     public User createUser(UserDTO userDTO) throws DataNotFoundException {
         String phoneNumber = userDTO.getPhoneNumber();
@@ -75,16 +76,7 @@ public class UserService implements IUserService{
                 userLoginDTO.getPhoneNumber(),userLoginDTO.getPassword(),existingUser.getAuthorities()
         );
         authenticationManager.authenticate(authenticationToken);
-        String token = jwtTokenUtil.generateToken(existingUser);
-        Date expiredTime = jwtTokenUtil.extractClaim(token,Claims::getExpiration);
-        // RefreshToken
-        RefreshToken refreshToken = RefreshToken.builder()
-                .Token(token)
-                .expiredTime(expiredTime)
-                .user(existingUser)
-                .build();
-        refreshTokenRepository.save(refreshToken);
-        return token;
+        return jwtTokenUtil.generateToken(existingUser);
     }
 
     @Override
@@ -125,5 +117,22 @@ public class UserService implements IUserService{
         User existingUser = userRepository.findById(id)
                 .orElseThrow(()-> new DataNotFoundException("can not found user"));
         return existingUser;
+    }
+
+    @Override
+    public User getUserDetailsFromToken(String token) throws Exception {
+        if(jwtTokenUtil.isTokenExpired(token)) {
+            throw new ExpiredTokenException("Token is expired");
+        }
+        String subject = jwtTokenUtil.getSubject(token);
+        Optional<User> user;
+        user = userRepository.findByPhoneNumber(subject);
+        return user.orElseThrow(() -> new Exception("User not found"));
+    }
+
+    @Override
+    public User getUserDetailsFromRefreshToken(String token) throws Exception {
+        RefreshToken existingToken = tokenRepository.findByRefreshToken(token);
+        return getUserDetailsFromToken(existingToken.getToken());
     }
 }

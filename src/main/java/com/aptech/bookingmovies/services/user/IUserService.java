@@ -1,4 +1,4 @@
-package com.aptech.bookingmovies.services;
+package com.aptech.bookingmovies.services.user;
 
 import com.aptech.bookingmovies.dtos.UserDTO;
 import com.aptech.bookingmovies.dtos.UserLoginDTO;
@@ -13,5 +13,7 @@ public interface IUserService {
     boolean forgotPassword(String email,String phoneNumber)throws Exception;
     User findByPhoneNumber(String phoneNumber) throws  Exception;
     User findById(int id) throws Exception;
+    User getUserDetailsFromToken(String token) throws Exception;
+    User getUserDetailsFromRefreshToken(String token) throws Exception;
 
 }
