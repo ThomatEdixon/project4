@@ -8,13 +8,16 @@ import com.aptech.bookingmovies.models.Rate;
 import com.aptech.bookingmovies.repositories.MovieRepository;
 import com.aptech.bookingmovies.repositories.MovieTypeRepository;
 import com.aptech.bookingmovies.repositories.RateRepository;
-import com.aptech.bookingmovies.services.movie.IMovieService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +25,13 @@ public class MovieService implements IMovieService {
     private final MovieRepository movieRepository;
     private final RateRepository rateRepository;
     private final MovieTypeRepository movieTypeRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Movie createMovie(MovieDTO movieDTO) throws Exception {
         Rate rate = rateRepository.findById(movieDTO.getRateId())
                 .orElseThrow(()->new DataNotFoundException("Can not found rate"));
-        MovieType movieType = movieTypeRepository.findById(movieDTO.getMovieTypeId())
-                .orElseThrow(()->new DataNotFoundException("Can not found movie type"));
         Movie newMovie = Movie.builder()
                 .movieDuration(movieDTO.getMovieDuration())
                 .endTime(movieDTO.getEndTime())
@@ -40,7 +43,6 @@ public class MovieService implements IMovieService {
                 .language(movieDTO.getLanguage())
                 .name(movieDTO.getName())
                 .trailer(movieDTO.getTrailer())
-                .movieType(movieType)
                 .rate(rate)
                 .isActive(true)
                 .build();
@@ -62,8 +64,6 @@ public class MovieService implements IMovieService {
     @Override
     public Movie updateMovie(int id, MovieDTO movieDTO) throws Exception {
         Rate rate = rateRepository.findById(movieDTO.getRateId()).orElseThrow();
-        MovieType movieType = movieTypeRepository.findById(movieDTO.getMovieTypeId())
-                .orElseThrow(()->new DataNotFoundException("Can not found movie type"));
         Movie existingMovie = movieRepository.findById(id)
                 .orElseThrow(()-> new DateTimeException("Can not found movie"));
         existingMovie.setMovieDuration(movieDTO.getMovieDuration());
@@ -76,7 +76,6 @@ public class MovieService implements IMovieService {
         existingMovie.setLanguage(movieDTO.getLanguage());
         existingMovie.setName(movieDTO.getName());
         existingMovie.setTrailer(movieDTO.getTrailer());
-        existingMovie.setMovieType(movieType);
         existingMovie.setRate(rate);
         return movieRepository.save(existingMovie);
     }
@@ -84,7 +83,7 @@ public class MovieService implements IMovieService {
     @Override
     public String deleteMovie(int id) throws Exception {
         Movie existingMovie = movieRepository.findById(id)
-                .orElseThrow(()-> new DateTimeException("Can not found movie"));
+                .orElseThrow(()-> new DataNotFoundException("Can not found movie"));
         movieRepository.delete(existingMovie);
         return "Delete Successfully";
     }
@@ -102,9 +101,48 @@ public class MovieService implements IMovieService {
     }
 
     @Override
-    public Movie findById(int id) {
+    public Movie findById(int id) throws Exception{
         Movie existingMovie = movieRepository.findById(id)
-                .orElseThrow(()-> new DateTimeException("Can not found movie"));
+                .orElseThrow(()-> new DataNotFoundException("Can not found movie"));
         return existingMovie;
+    }
+
+    @Override
+    @Transactional
+    public Boolean addMovieTypeToMovie(int movieId, int movieTypeId) throws Exception{
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new DataNotFoundException("Can not found movie"));
+        MovieType movieType = movieTypeRepository.findById(movieTypeId).orElseThrow(() -> new DataNotFoundException("MCan not found movie type"));
+
+        if (movieRepository.existsByMovieIdAndMovieTypeId(movieId, movieTypeId)) {
+            System.out.println("MovieType đã được liên kết với Movie này");
+            return false;
+        }
+
+        System.out.println("Trước khi thêm: " + movie.getMovieTypes());
+        movie.getMovieTypes().add(movieType);
+        System.out.println("Sau khi thêm: " + movie.getMovieTypes());
+
+        // Save movie to ensure the join table is updated
+        movieRepository.save(movie);
+
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public List<Movie> findMoviesByType(int movieTypeId) throws Exception {
+        MovieType movieType = movieTypeRepository.findById(movieTypeId)
+                .orElseThrow(() -> new DataNotFoundException("Can not found movie type"));
+        List<Movie> movies = movieRepository.findMoviesByType(movieTypeId);
+        System.out.println("Movies found for MovieType: " + movies);
+        return movies;
+    }
+
+    @Override
+    public List<MovieType> findMovieTypeById(int id) throws Exception {
+        Movie existingMovie = movieRepository.findById(id)
+                .orElseThrow(() -> new DataNotFoundException("Can not found movie"));
+        List<MovieType> movieTypes = movieRepository.findMovieTypesByMovieId(id);
+        return movieTypes;
     }
 }

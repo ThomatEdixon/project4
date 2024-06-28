@@ -30,7 +30,9 @@ public class WedSecurityConfig {
                 .authorizeHttpRequests(requests->{
                     requests.requestMatchers(
                                     String.format("%s/user/login",apiPrefix),
-                                    String.format("%s/user/register",apiPrefix)
+                                    String.format("%s/user/register",apiPrefix),
+                                    String.format("%s/movie/images",apiPrefix)
+
                             )
                             .permitAll()
                             // api cinema

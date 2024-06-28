@@ -9,7 +9,7 @@ spring:
     password: 12345678
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -44,5 +44,11 @@ paypal:
     id: AXnK_VTI8iqOKEYDt-5K8OkH1L_Ab6N1_Rn75moqHTj41do27a-4kUpBGeec_jTrfkMFHAQIC-X0YpR1
     secret: EHGc5TVBZ_I_HDJ1ycnZnW_bVAH7iZWTjn20N7ktRDxIPKCs5vJ2NFKBneRQL8AQgH5ffCW3jx0P5SmY
   mode: sandbox
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
 
 

@@ -2,9 +2,13 @@ package com.aptech.bookingmovies.controllers;
 
 import com.aptech.bookingmovies.dtos.MovieDTO;
 import com.aptech.bookingmovies.models.Movie;
+import com.aptech.bookingmovies.models.MovieType;
 import com.aptech.bookingmovies.services.movie.MovieService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +31,27 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("${api.prefix}/movie")
 public class MovieController {
+    private final Logger logger = LoggerFactory.getLogger(MovieController.class);
     private final MovieService movieService;
     @GetMapping("/findByMovieName")
     public ResponseEntity<?> findMovieByName(@RequestParam String name) throws Exception{
         List<Movie> cinemas = movieService.findByName(name);
         return ResponseEntity.ok(cinemas);
+    }
+    @GetMapping("/findMovieTypeByMovieId")
+    public ResponseEntity<?> findMovieTypeByMovieId(@RequestParam int id) throws Exception{
+        List<MovieType> movieTypes = movieService.findMovieTypeById(id);
+        return ResponseEntity.ok(movieTypes);
+    }
+    @GetMapping("/findMovieByMovieType")
+    public ResponseEntity<?> findMovieByMovieType(@RequestParam int id) throws Exception{
+        List<Movie> movies = movieService.findMoviesByType(id);
+        return ResponseEntity.ok(movies);
+    }
+    @PostMapping("/addMovieTypeToMovie")
+    public ResponseEntity<?> addMovieTypeToMovie(@RequestParam int movieId, @RequestParam int movieTypeId) throws Exception{
+        boolean result = movieService.addMovieTypeToMovie(movieId, movieTypeId);
+        return ResponseEntity.ok(result);
     }
     @GetMapping("/findMovieId")
     public ResponseEntity<?> findMovieId(@RequestParam int id) throws Exception{
@@ -74,9 +94,30 @@ public class MovieController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @GetMapping("/images")
+    public ResponseEntity<?> viewImage(@RequestParam String imageName) {
+        try {
+            java.nio.file.Path imagePath = Paths.get("uploads/"+imageName);
+            UrlResource resource = new UrlResource(imagePath.toUri());
 
-    @PutMapping("/updateMovie/{id}")
-    public ResponseEntity<?> updateMovie(@Valid @RequestBody MovieDTO movieDTO,@PathVariable("id") int id, BindingResult result){
+            if (resource.exists()) {
+                return ResponseEntity.ok()
+                        .contentType(MediaType.IMAGE_JPEG)
+                        .body(resource);
+            } else {
+                logger.info(imageName + " not found");
+                return ResponseEntity.ok()
+                        .contentType(MediaType.IMAGE_JPEG)
+                        .body(new UrlResource(Paths.get("uploads/notfound.jpeg").toUri()));
+                //return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            logger.error("Error occurred while retrieving image: " + e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping(value ="/updateMovie/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateMovie(@Valid @ModelAttribute MovieDTO movieDTO,@PathVariable("id") int id, BindingResult result){
         try{
             if(result.hasErrors()){
                 List<String> errorMessage = result.getFieldErrors()
@@ -85,6 +126,20 @@ public class MovieController {
                         .toList();
                 return ResponseEntity.badRequest().body(errorMessage);
             }
+            MultipartFile file = movieDTO.getFile();
+            if(file != null) {
+                if(file.getSize() > 10 * 1024 * 1024) {
+                    return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
+                            .body("File is too large! Maximum size is 10MB");
+                }
+                String contentType = file.getContentType();
+                if(contentType == null || !contentType.startsWith("image/")) {
+                    return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+                            .body("File must be an image");
+                }
+            }
+            String filename = storeFile(file);
+            movieDTO.setImage(filename);
             Movie newMovie = movieService.updateMovie(id,movieDTO);
             return ResponseEntity.ok(newMovie);
 

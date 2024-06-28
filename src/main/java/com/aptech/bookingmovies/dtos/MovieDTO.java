@@ -34,9 +34,8 @@ public class MovieDTO {
 
     private String trailer;
 
-    private int movieTypeId;
-
     private int rateId;
+
     private MultipartFile file;
 
 }

@@ -83,6 +83,20 @@ public class RoomService implements IRoomService {
         return existingRoom;
     }
 
+    @Override
+    public List<Room> findByCinemaId(int id) throws Exception {
+        Cinema cinema = cinemaRepository.findById(id)
+                .orElseThrow(()-> new DataNotFoundException("Not found cinema"));
+        List<Room> rooms = findAll();
+        List<Room> result = new ArrayList<>();
+        for(Room r : rooms){
+            if(r.getCinema().getId() == id){
+                result.add(r);
+            }
+        }
+        return result;
+    }
+
     public String generateRoomCode(){
         String roomCode="R";
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

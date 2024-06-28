@@ -23,6 +23,11 @@ public class RoomController {
         Room room = roomService.findByRoomName(name);
         return ResponseEntity.ok(room);
     }
+    @GetMapping("/findByCinemaId")
+    public ResponseEntity<?> findRoomById(@RequestParam  int id) throws Exception{
+        List<Room> rooms = roomService.findByCinemaId(id);
+        return ResponseEntity.ok(rooms);
+    }
     @GetMapping("/findRoomId")
     public ResponseEntity<?> findRoomId(@RequestParam int id) throws Exception{
         Room room = roomService.findById(id);

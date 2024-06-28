@@ -12,4 +12,5 @@ public interface IRoomService {
     String delete(int id) throws Exception;
     Room findByRoomName(String name) throws Exception;
     Room findById(int id);
+    List<Room> findByCinemaId(int id) throws Exception;
 }

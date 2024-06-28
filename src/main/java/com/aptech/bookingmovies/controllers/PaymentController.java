@@ -27,8 +27,8 @@ public class PaymentController {
                     "paypal",
                     "sale",
                     "Payment description",
-                    "http://localhost:8080/api/paypal/cancel",
-                    "http://localhost:8080/api/paypal/success");
+                    "http://localhost:8081/api/paypal/cancel",
+                    "http://localhost:8081/api/paypal/success");
             for (Links link : payment.getLinks()) {
                 if (link.getRel().equals("approval_url")) {
                     return "redirect:" + link.getHref();

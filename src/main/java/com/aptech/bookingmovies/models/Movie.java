@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -40,9 +42,14 @@ public class Movie {
     private String trailer;
     @Column(name="is_active")
     private boolean isActive;
-    @ManyToOne
-    @JoinColumn(name = "movie_type_id")
-    private MovieType movieType;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "movie_movie_types",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_type_id")
+    )
+    private Set<MovieType> movieTypes = new HashSet<>();
+
     @ManyToOne
     @JoinColumn(name = "rate_id")
     private Rate rate;
