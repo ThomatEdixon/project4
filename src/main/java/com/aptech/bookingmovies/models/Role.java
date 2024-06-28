@@ -2,11 +2,10 @@ package com.aptech.bookingmovies.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.elasticsearch.annotations.Document;
-@Entity
 
+@Entity
 @Data
-@Document(indexName = "role")
+@Table(name = "role")
 @Getter
 @Setter
 @NoArgsConstructor

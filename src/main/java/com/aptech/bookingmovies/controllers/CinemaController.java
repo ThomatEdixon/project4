@@ -2,11 +2,9 @@ package com.aptech.bookingmovies.controllers;
 
 import com.aptech.bookingmovies.dtos.CinemaDTO;
 import com.aptech.bookingmovies.models.Cinema;
-import com.aptech.bookingmovies.models.User;
-import com.aptech.bookingmovies.services.CinemaService;
+import com.aptech.bookingmovies.services.cinema.CinemaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,6 +25,11 @@ public class CinemaController {
         return ResponseEntity.ok(cinemas);
     }
 
+    @GetMapping("/findCinemaId")
+    public ResponseEntity<?> findCinemaId(@RequestParam int id) throws Exception{
+        Cinema cinema = cinemaService.findById(id);
+        return ResponseEntity.ok(cinema);
+    }
     @GetMapping("")
     public ResponseEntity<?> listCinema(){
         return ResponseEntity.ok(cinemaService.getAll());

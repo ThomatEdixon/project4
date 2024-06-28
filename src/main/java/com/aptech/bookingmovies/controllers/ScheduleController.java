@@ -1,13 +1,10 @@
 package com.aptech.bookingmovies.controllers;
 
-import com.aptech.bookingmovies.dtos.RoomDTO;
 import com.aptech.bookingmovies.dtos.ScheduleDTO;
-import com.aptech.bookingmovies.models.Room;
 import com.aptech.bookingmovies.models.Schedule;
-import com.aptech.bookingmovies.services.ScheduleService;
+import com.aptech.bookingmovies.services.schedule.ScheduleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,7 +23,11 @@ public class ScheduleController {
         List<Schedule> schedule = scheduleService.findByMovieName(name);
         return ResponseEntity.ok(schedule);
     }
-
+    @GetMapping("/findScheduleId")
+    public ResponseEntity<?> findScheduleId(@RequestParam int id) throws Exception{
+        Schedule schedule = scheduleService.findById(id);
+        return ResponseEntity.ok(schedule);
+    }
     @GetMapping("")
     public ResponseEntity<?> listSchedule(){
         return ResponseEntity.ok(scheduleService.findAll());

@@ -2,10 +2,9 @@ package com.aptech.bookingmovies.controllers;
 
 import com.aptech.bookingmovies.dtos.BillTicketDTO;
 import com.aptech.bookingmovies.models.BillTicket;
-import com.aptech.bookingmovies.services.BillTicketService;
+import com.aptech.bookingmovies.services.billticket.BillTicketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,6 +22,11 @@ public class BillTicketController {
     public ResponseEntity<?> listBill(@RequestParam String phoneNumber) throws Exception{
         List<BillTicket> bills = billTicketService.findBillTicketByCustomerPhoneNumber(phoneNumber);
         return ResponseEntity.ok(bills);
+    }
+    @GetMapping("/findBillTicketId")
+    public ResponseEntity<?> findBillTicketId(@RequestParam int id) throws Exception{
+        BillTicket billTicket = billTicketService.findById(id);
+        return ResponseEntity.ok(billTicket);
     }
 
     @PostMapping("/createBillTicket")

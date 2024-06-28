@@ -2,10 +2,9 @@ package com.aptech.bookingmovies.controllers;
 
 import com.aptech.bookingmovies.dtos.RoomDTO;
 import com.aptech.bookingmovies.models.Room;
-import com.aptech.bookingmovies.services.RoomService;
+import com.aptech.bookingmovies.services.room.RoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -24,7 +23,16 @@ public class RoomController {
         Room room = roomService.findByRoomName(name);
         return ResponseEntity.ok(room);
     }
-
+    @GetMapping("/findByCinemaId")
+    public ResponseEntity<?> findRoomById(@RequestParam  int id) throws Exception{
+        List<Room> rooms = roomService.findByCinemaId(id);
+        return ResponseEntity.ok(rooms);
+    }
+    @GetMapping("/findRoomId")
+    public ResponseEntity<?> findRoomId(@RequestParam int id) throws Exception{
+        Room room = roomService.findById(id);
+        return ResponseEntity.ok(room);
+    }
     @GetMapping("")
     public ResponseEntity<?> listRoom(){
         return ResponseEntity.ok(roomService.findAll());

@@ -2,11 +2,13 @@ package com.aptech.bookingmovies.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.elasticsearch.annotations.Document;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
-@Document(indexName =  "movie_type")
+@Table(name =  "movie_type")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,4 +22,6 @@ public class MovieType {
     private String movieTypeName;
     @Column(name = "is_active")
     private boolean isActive;
+    @ManyToMany(mappedBy = "movieTypes", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    private Set<Movie> movies = new HashSet<>();
 }

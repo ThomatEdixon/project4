@@ -1,13 +1,10 @@
 package com.aptech.bookingmovies.controllers;
 
-import com.aptech.bookingmovies.dtos.MovieDTO;
 import com.aptech.bookingmovies.dtos.PromotionDTO;
-import com.aptech.bookingmovies.models.Movie;
 import com.aptech.bookingmovies.models.Promotion;
-import com.aptech.bookingmovies.services.PromotionService;
+import com.aptech.bookingmovies.services.promotion.PromotionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -25,7 +22,11 @@ public class PromotionController {
         Promotion promotion = promotionService.findPromotionByRankCustomer(rankCustomerId);
         return ResponseEntity.ok(promotion);
     }
-
+    @GetMapping("/findPromotionId")
+    public ResponseEntity<?> findPromotionId(@RequestParam int id) throws Exception{
+        Promotion promotion = promotionService.findById(id);
+        return ResponseEntity.ok(promotion);
+    }
     @PostMapping("/createPromotion")
     public ResponseEntity<?> createPromotion(@Valid @RequestBody PromotionDTO promotionDTO, BindingResult result){
         try{

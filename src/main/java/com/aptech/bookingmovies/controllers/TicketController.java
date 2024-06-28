@@ -1,13 +1,10 @@
 package com.aptech.bookingmovies.controllers;
 
-import com.aptech.bookingmovies.dtos.MovieDTO;
 import com.aptech.bookingmovies.dtos.TicketDTO;
-import com.aptech.bookingmovies.models.Movie;
 import com.aptech.bookingmovies.models.Ticket;
-import com.aptech.bookingmovies.services.TicketService;
+import com.aptech.bookingmovies.services.ticket.TicketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -25,6 +22,11 @@ public class TicketController {
     @GetMapping("/findTicketByCode(")
     public ResponseEntity<?> findTicketByCode(@RequestParam String code){
         Ticket ticket = ticketService.findByCode(code);
+        return ResponseEntity.ok(ticket);
+    }
+    @GetMapping("/findTicketId")
+    public ResponseEntity<?> findTicketId(@RequestParam int id) throws Exception{
+        Ticket ticket = ticketService.findById(id);
         return ResponseEntity.ok(ticket);
     }
     @PostMapping("/createTicket")
